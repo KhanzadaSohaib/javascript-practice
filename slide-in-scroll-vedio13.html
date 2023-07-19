@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html{
+            box-sizing: border-box;
+            background: #ffc600;
+            font-family: 'Helvetica neue';
+            font-size: 20px;
+            font-weight: 200;
+        }
+        body{
+            margin: 0;
+        }
+        h1 {
+            margin-top: 0;
+        }
+
+        .site-wrap {
+            max-width: 700px;
+            margin: 100px auto;
+            background: white;
+            padding: 40px;
+            text-align: justify;
+          
+        }
+        .align-left {
+            float: left;
+            margin-left: 20px;
+        } 
+        .align-right{
+          float: right;
+          margin-right: 20px;
+        }
+        .slide-in {
+            opacity: 0;
+            transition: all .5s;
+        }
+        .align-left.slide-in {
+            transform: translateX(-30%) scale(0.95);
+        }
+        .align-right.slide-in {
+            transform: translateX(-30%) scale(0.95);
+        }
+
+        .slide-in.active {
+            opacity: 1;
+            transform: translateX(0%) scale(1);
+        } 
+    </style>
+</head>
+
+<body>
+    <div class="site-wrap">
+        <h1>Slide in on scroll</h1>
+        <p>Mohammad Babar Azam (Urdu, Punjabi: محمد بابر اعظم; born 15 October 1994), is a Pakistani international
+            cricketer and captain of the Pakistan national cricket team who is widely regarded as one of the finest
+            batters in contemporary cricket being the only cricketer in the world to be in the top 3 rankings across all
+            formats.[3][4][5][6][7] [8] He is ranked as the number one batter in ODIs and third in T20Is and Tests.[9] A
+            right-handed top-order batter, he plays for and captains Peshawar Zalmi in the PSL and Central Punjab in
+            domestic cricket of Pakistan.[10] With 42 wins, he is the joint most successful T20I captain of all
+            time.[11]
+
+            Azam's maiden T20 century of 122 which he scored against South Africa is the highest current individual
+            score by a Pakistani in the format. Azam was a member of the Pakistan team that won the 2017 ICC Champions
+            Trophy. <img src="pic-13.png" class="align-right slide-in"></p>
+
+        <p>Mohammad Amir (Urdu: محمد عامر; born 13 April 1992) is a Pakistan-born British citizen and a former Pakistani
+            cricketer and bowler for the Pakistan national cricket team. He was a left-arm fast bowler and a left handed
+            batsman. He took retirement from international cricket in 2020 at the age of just 28 years.[3][4]
+
+            Amir made his first-class debut on November 2008, and his first One-Day International and Test appearances
+            on July 2009 in Sri Lanka at the age of 17. He played his first international match during the 2009 ICC
+            World Twenty20, helping the national side win <img src="pic13-1.png" class="align-right slide-in"> the tournament.[5][6] 8 years later in England, he helped
+            Pakistan win the 2017 ICC Champions Trophy, and was a major contributor with the ball in the final, getting
+            the major wickets of Rohit Sharma, Virat Kohli, and Shikhar Dhawan. <img src="pic13-4.jpg" class="align-right slide-in"> </p>
+
+        <p> <img src="pic13-5.jpg" class="align-left slide-in"> Afridi runs his own charity, the Shahid Afridi Foundation which aims to provide education and healthcare
+            facilities. He also teamed up with UNICEF to promote the anti-polio campaign in the country. During the 2019
+            Coronavirus pandemic, he was involved in helping people across Balochistan during the lockdown in the
+            country. This led to him contracting COVID-19 on 13 June 2020.[10] Afridi was also nominated among the top
+            20 most charitable athletes of 2015. <img src="pic13-2.jpg" class="align-right slide-in"></p>
+    </div>
+
+
+    <script>
+        function debounce(func, wait = 20, immediate = true) {
+            var timeout;
+            return function(){
+                var context = this, args = arguments;
+                var later = function(){
+                    timeout = null;
+                    if(!timeout) func.apply(context, args);
+
+                };
+                var callNow = immediate && !timeout;
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+                if (callNow) func.apply(context, args);
+            };
+        };
+
+        const sliderImage = document.querySelectorAll('.slider-in');
+         
+        function checkSlide(e) {
+            sliderImage.forEach(sliderImage => {
+                const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height / 2;
+
+                const imageBottom = sliderImage.offsetTop + sliderImage.height;
+                const isHalfShown = slideInAt > sliderImage.offsetTop;
+                const isNotScrollPast = window.scrollY < imageBottom;
+                if (isHalfShown && isNotScrollPast) {
+                    sliderImage.classList.add('active');
+                } else{
+                    sliderImage.classList.remove('active');
+                }
+            })
+        }
+        window.addEventListener('scroll', debounce(checkSlide));
+    </script>
+</body>
+
+</html>
