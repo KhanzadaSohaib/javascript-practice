@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            background-color: #ffdd40;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+        }
+
+        p {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 80px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        #text-shadow {
+            text-align: center;
+            font-weight: 900;
+            line-height: 1em;
+
+        }
+
+        #text-shadow span {
+            display: inline-block;
+            mix-blend-mode: overlay;
+            transform: translate(0px, 0px, 0px);
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            position: absolute;
+            z-index: 0;
+            left: 0;
+            top: 0;
+            z-index: -1;
+            filter: drop-shadow(2px 4px 6px black);
+
+        }
+    </style>
+</head>
+
+<body>
+    <p data-color="#ffdd40" id="text-shadow">Khanzada</p>
+
+    <script>
+        const PX_RATIO = window.devicePixelRatio;
+        const LIMIT = 5;
+        math.map = (n, start, stop, start2, stop2, withinBounds) => {
+            const newval = ((n - start) / (stop - start)) * (stop2 - start2) + start2;
+            if (!eithinBounds) {
+                return mewval;
+            }
+            if (start2 < stop2) {
+                return math.inRange(newval, start2, stop2);
+            } else {
+                return math.inRange(newval, stop2, start2);
+            }
+        };
+        math.inRange = (v, low,) => {
+            return math.max(math.min(v, high), low);
+        };
+
+        class Mouse {
+            constructor() {
+                this.x = 1;
+                this.y = 1;
+                this.addEvents()
+            }
+        
+
+
+        addEvents() {
+            document.addEventListener("mousemove", this.update.bind(this), false);
+            document.addEventListener("touchmouse", this.update.bind(this), false);
+
+        }
+
+        onDown(callback) {
+       document.addEventListener("mousedown", () => callback(this.pos), false);
+       document.addEventListener("touchstart", () => callback(this.pos), false);
+
+        };
+        onUp(callback) {
+       document.addEventListener("mouseup", () => callback(this.pos), false);
+       document.addEventListener("touchend", () => callback(this.pos), false);
+
+        };
+
+        update(e){
+          if(e.touches) e = e.touches[0];
+          this.x = e.clientX * PX_RATIO;
+          this.Y = e.clientY * PX_RATIO;
+
+        }
+        }
+
+        class channel{
+         constructor(args){
+            this.el = args.el || document.body;
+            this.text = args.text || "sohaib ahmed";
+            this.color = args.color || "magenta";
+            this.friction = args.friction || 0.1;
+            this.x = 0;
+            this.y = 0;
+            this.radio = args.radio || 10;
+            this.to = {x: 0, y: 0};
+            this.set();
+
+         }
+         set(){
+            this.layer = document.createElement("span");
+            this.layer.innerText = this.text;
+            this.layer.style.color = this.color;
+            this.el.appenChild(this.layer);
+         }
+         updateBounds(mouse){
+          this.to.x = math.map(this.x, 0, window.innerWidth, this.radio, -this.radio );
+          this.to.y = math.map(this.y, 0, window.innerWidth, this.radio, -this.radio );
+
+         }
+         render (){
+            this.layer.style.transform = 
+            transform3d(" + this.to.x" + "px," + "this.to.y" + "px, 0");
+         }
+
+         update(mouse){
+            this.x += (mouse.x - this.x) * this.friction; 
+            this.y += (mouse.y - this.y) * this.friction; 
+            this.updateBounds();
+            this.render();
+
+         }
+        }
+
+        class textShadow{
+            constructor(el){
+                this.el = el;
+                this.text = el.innerText;
+                this.colors = (el.getAttribute("data-colors") || "mageta yellow").split(
+                  ","
+                );
+                this.mouse = new Mouse();
+                 this.channels = [];
+                 this.setChannels();
+                 this.animate(); 
+            }
+        
+
+            setChannels(){
+                for(var i = 0; i < this.color.length; i++) {
+                    let channel = new channel({
+                        el: this.el,
+                        color: this.color[i],
+                        text: this.text,
+                        friction: 0.05 * (i + 1),
+                        radio: LIMIT * (i + 1) + 2
+                    });
+                    this.channels.push(channel);
+                }
+            }
+        animate() {
+            requestAnimationFrame(this.animate.bind(this));
+            this.render;
+        }
+        render(){
+            for (var i = 0; i < this.channels.length; i++) {
+                this.channels[i].update(this.mouse);
+            }
+        }
+    }
+    let title = document.querySelector("#text-shadow");
+    const _text = new textShadow(title);
+    </script>
+</body>
+
+</html>

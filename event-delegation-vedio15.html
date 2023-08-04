@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-image: url(pic5.1.jpg);
+        }
+
+        .wrapper {
+            width: 300px;
+            margin-left: 580px;
+            height: auto;
+            margin-top: 180px;
+            background: white;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .wrapper li {
+            margin-left: 7px;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 0;
+            font-weight: 200;
+        }
+
+        .plates {
+            margin: 0;
+            padding: 0;
+            text-align: left;
+            list-style: none;
+        }
+
+        .plates li {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            padding: 10px 0;
+            font-weight: 100;
+            display: flex;
+        }
+
+        .plates label {
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .plates input {
+            display: none;
+        }
+
+        .plates input+label::before {
+            content: "checkbox";
+            margin-right: 10px;
+        }
+
+        .plates input:checked+label::before {
+            content: '+poo';
+        }
+
+        .add-items {
+            margin-top: 20px;
+        }
+
+        .add-items input {
+            padding: 10px;
+            outline: 0;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <h2>LOCAL TAPAS</h2>
+        <p></p>
+        <ul class="plates">
+            <li>loading tapas...</li>
+        </ul>
+        <form class="add-items">
+            <input type="text" name="item" placeholder="item name" required>
+            <input type="submit" value="+ add item">
+        </form>
+    </div>
+
+    <script>
+        const addItems = document.querySelector('.add-items');
+        const itemslist = document.querySelector('.plates');
+        const items =JSON.parse(localStorage.getItem('item')) || [];
+
+        function addItem(e) {
+            e.preventDefault();
+            const text = (this.querySelector('[name=item]')).value;
+            const item = {
+                text,
+                done: false
+            };
+            items.push(item);
+            populateList(items, itemslist);
+            localStorage.setItem('items', JSON.stringify(items));
+            this.reset();
+
+        }
+
+        function populateList(plates = [], platesList) {
+            platesList.innerHTML = plates.map((plate, i) => {
+                return `
+            <li>
+                <input type="checkbox" data-index=${i} id="item${i}" ${plate.done ? 'checked' : ''}/>
+                <lebel for="item${i}">${plate.text}</lebel> 
+                </li>
+            `;
+
+            }).join('');
+        }
+
+        function toggleDone() {
+
+        }
+        addItems.addEventListener('submit', addItem);
+        itemslist.addEventListener('click', toggleDone);
+       
+    </script> 
+</body>
+
+</html>

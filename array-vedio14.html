@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reference vs copy</title>
+</head>
+
+<body>
+    <script>
+        let age1 = 100;
+        let age2 = age1;
+        console.log(age1, age2);
+        age2 = 200;
+        console.log(age1, age2);
+
+
+
+
+
+        let name = "khanzada"
+        let name2 = name;
+        console.log(name, name2);
+        name = "Sohaib Ahmed";
+        console.log(name, name2);
+
+
+
+        const a = '3';
+        let b = a;
+        b = '5';
+        console.log("a", a);
+        console.log("b", b);
+
+
+
+        const player = ['Amir', 'Babar', 'Sarfaraz', 'Dahani', 'Afridi'];
+        const team = player;
+        console.log(team);
+
+        team[1] = 'Umer Gull';
+        console.log("player",player);
+        console.log("team",team);
+
+
+
+        const person = {
+            name: 'Sohaib Ahmed',
+            age: 21
+        };
+       const person2 = Object.assign({}, person, {number: 99, age: 18});
+
+
+
+       const  Sohaib  = {
+        name: 'Sohaib Ahmed khanzada',
+        age: 21,
+        social: {
+            instagram: 'khanzadashobii',
+            facebook: 'Sohaib Ahmed khanzada',
+            threads: 'Sohaib khanzada'
+        }
+       }
+       console.log(Sohaib);
+    </script>
+</body>
+
+</html>

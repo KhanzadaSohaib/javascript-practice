@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *, *:before, *:after  {
+            box-sizing: inherit;
+        }
+        body {
+            min-height: 100vh;
+            margin: 0;
+            font-family: sans-serif;
+            background: 
+            linear-gradient(45deg, hsla(340, 100%, 55%, 1) 0%,  hsla(340, 100%, 55%, 0) 70%),
+            linear-gradient(135deg, hsla(225, 95%, 50%, 1) 10%,  hsla(225, 95%, 50%, 0) 80%),
+            linear-gradient(225deg, hsla(140, 90%, 50%, 1) 10%,  hsla(140, 90%, 50%, 0) 80%),
+            linear-gradient(315deg, hsla(35, 95%, 55%, 1) 100%,  hsla(35, 95%, 55%, 0) 70%);
+        }
+
+        .wrapper {
+            margin: 0 auto;
+            max-width: 500px;
+            font-size: 20px;
+            line-height: 2;
+            position: relative;
+        }
+        a{
+            text-decoration: none;
+            color: black;
+            background: rgba(0,0,0,0.05);
+            border-radius: 20px;
+        }
+
+        .highlight {
+            transition: all 2s;
+            border-bottom: 2px solid white;
+            position: absolute;
+            top: 0;
+            background: white;
+            left: 0;
+            z-index: -1;
+            border-radius: 20px;
+            display: block;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        .menu {
+            padding: 0;
+            margin: 0;
+            display: flex;
+            list-style: none;
+            justify-content: center;
+            margin: 100px 0;
+        }
+
+        .menu a {
+            display: inline-block;
+            padding: 5px;
+            margin: 0 20px;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul class="menu">
+            <li><a href="Home"></a>Home</li>
+            <li><a href="Order Status"></a></li>
+            <li><a href="Tweets"></a></li>
+            <li><a href="Read Our History"></a></li>
+            <li><a href="Contact Us"></a></li>
+        </ul>
+    </nav>
+    <div class="wrapper">
+        <p>
+            Lorem ipsum, dolor sit amet <a href=""></a> adipisicing elit. Odit nostrum quaerat, unde <a href="">aperiam</a> aspernatur a
+            et, ad nam, alias nulla laborum <a href="">exercitationem</a> error rem! <a href="">Voluptas</a> aliquid sed cumque odit <a href="">aperiam</a>, illo
+            dignissimos accusamus similique. <br> <br>
+
+            Lorem ipsum dolor sit amet <a href="">consectetur</a>, adipisicing elit. Nulla <a href="">assumenda</a> velit ab fuga, fugit ut officiis
+            eaque, <a href="">repellendus</a> maxime temporibus officia <a href="">doloremque voluptatem!</a> Impedit eaque, sequi <a href="">aspernatur</a> debitis
+            inventore <a href="">dignissimos</a> natus libero adipisci, nulla corrupti eveniet <a href="">consectetur</a> delectus dolores nemo ad ab
+            <a href="">reiciendis</a>? Neque. <br> <br>
+
+            Lorem ipsum dolor sit amet <a href="">consectetur</a> adipisicing elit. <a href="">Reprehenderit</a> quos consectetur eos. Libero eum,
+            iusto suscipit enim neque <br> <a href="">laboriosam</a> ipsum <a href="">blanditiis</a> ratione ipsa aut, deserunt nisi repellat nostrum
+            optio, illum facere numquam <br> <a href="">temporibus</a>. Veniam obcaecati ex libero explicabo aspernatur. <a href="">Reprehenderit</a>
+            <a href="">accusantium</a> omnis quae nisi quis sed aspernatur rem <a href="">repudiandae</a> dicta adipisci, ullam eius consectetur fuga
+            et?
+        </p>
+    </div>
+
+
+    <script>
+        const triggers = document.querySelectorAll('a');
+        const highlight = document.createElement('span');
+        highlight.classList.add('highlight');
+        document.body.append(highlight);
+
+        function highlightLink(){
+            const linkCoords = this.getBoundingClientRect();
+            console.log(linkCoords);
+            const coords = {
+                width: linkCoords.width,
+                height: linkCoords.height,
+                top: linkCoords.top - window.scrollY,
+                left: linkCoords.left - window.scrollX
+            }
+
+
+            highlight.style.width = `${linkCoords.width}px`;
+            highlight.style.height = `${linkCoords.height}px`;
+            highlight.style.transform = `translate(${linkCoords.left}px, ${linkCoords.top}px )`;
+
+        }
+
+        triggers.forEach(a => a.addEventListener('mouseenter', highlightLink));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "poppins", sans-serif;
+        }
+        body {
+            display: flex;
+             align-items: center;
+             justify-content: center;
+             min-height: 100vh;
+             background: #ffc600;
+        }
+        .wrapper{
+            width: 370px;
+            border-radius: 7px;
+            padding: 25px 30px;
+            background: #fff;
+        }
+        .wrapper header {
+            font-size: 28px;
+            font-weight: 500;
+            text-align: center;
+
+        }
+        .wrapper form {
+            margin: 35px 0 20px;
+        }
+        form .row{
+            display: flex;
+            margin-bottom: 20px;
+            flex-direction: column;
+        }
+        form .row label{
+             font-size: 18px;
+             margin-bottom: 5px;
+
+        }
+         form :where(textarea, select, button){
+            outline: none;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+         }
+         form .rpw textarea{
+            resize: none;
+            height: 110px;
+            font-size: 15px;
+            padding: 8px 10px;
+           
+
+         }
+         form .row .outer{
+            height: 47px;
+            display: flex;
+            padding: 0 10px;
+            align-items: center;
+            border-radius: 5px;
+            border: 1px solid #999;
+         }
+         textarea{
+            border: 1px solid #999;
+         }
+         form .row select{
+            font-size: 14px;
+         }
+           form button{
+            height: 52px;
+            margin-top: 10px;
+            color: #fff;
+            font-size: 17px;
+            cursor: pointer;
+            background: #5256AD;
+           }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>Text To Speech</header>
+        <form action="#">
+            <div class="row">
+                <label> Enter Text</label>
+                <textarea></textarea>
+            </div>
+            <div class="row">
+                <label>Select Voice</label>
+                <div class="outer"> 
+                    <select>
+                        <option value="">Google Hindi (hi-IN)</option>
+                        <option value="">English (United state)</option>
+                        <option value="">Google US English (en-US) </option>
+                        <option value="">Google UK English Male (en-Gb)</option>
+                    </select>
+                </div>
+            </div>
+            <button>Convert To Speech</button>
+        </form>
+    </div>
+
+
+    <script>
+        const textarea = document.querySelector("textarea"),
+        speechBtn = document.querySelector("button");
+
+        function textToSpeach(text){
+            let utternance = new SpeechSynthesisUtterance(text);
+            speechSynthesis.speak(utternance);
+        }
+
+        speechBtn.addEventListener("click", e =>{
+            e.preventDefault();
+            if(textarea.value !== ""){
+                textToSpeech(textarea.value);
+            }
+        })
+    </script>
+</body>
+</html>
