@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click And Drag To Scroll</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        .wrapper {
+           display: flex;
+           grid-gap: 1rem;
+           max-width: 768px;
+           width: 100%;
+           overflow: auto;
+           scroll-snap-type: x;
+           cursor: grab;
+          scroll-behavior: smooth;
+        }
+        .slider{
+          min-width: calc(50% - .5rem);
+          aspect-ratio: 1 / 1;
+          background: #222;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: #fff;
+          font-size: 2rem;
+          scroll-snap-align: start;
+          font-weight: 600;
+          user-select: none ;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+       <div class="slider"><img src="gta2.jpg" alt=""></div>
+       <div class="slider"><img src="gtr.jpg" alt=""></div>
+       <div class="slider"><img src="gtr3.jpg" alt=""></div>
+       <div class="slider">4</div>
+       <div class="slider">5</div>
+       <div class="slider">6</div>
+       <div class="slider">7</div>
+       <div class="slider">8</div>
+    </div>
+
+    <script>
+        const wrapper = document.querySelector('.wrapper')
+
+        let pressed = false;
+        let startX = 0;
+
+        wrapper.addEventListener('mousedown', function (e){
+            console.log("Down")
+            pressed = true;
+            startX = e.clientX;
+            this.style.cursor = 'grabbing'
+        })
+
+        wrapper.addEventListener('mouseleave', function (e){
+            pressed = false; 
+        })
+
+        window.addEventListener('mouseup', function (e){
+            console.log("Up")
+            pressed = false; 
+            wrapper.style.cursor = 'grab'
+            this.scrollLeft =+ startX - e.clientX
+        })
+
+        wrapper.addEventListener('mousemove', function (e){
+            if(!pressed){
+                return
+            } 
+            console.log("Move")
+            this.scrollLeft =+ startX - e.clientX
+        })
+    </script>
+</body>
+</html>

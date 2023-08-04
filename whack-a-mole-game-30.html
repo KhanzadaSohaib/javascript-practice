@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whack A Mole Game</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=paytone+one&display=swap');
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        img {
+            width: 100%;
+            display: block;
+        }
+
+        body {
+            font-family: 'paytone One', sans-serif;
+            background-color: #769c38;
+        }
+
+        .count {
+            text-align: center;
+            margin-top: 20px;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .item {
+            width: 200px;
+            height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .mole {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: pointer;
+            background-color: #d5d6db;
+            border-radius: 50%;
+            transition: all 300ms ease;
+        }
+
+        .mole img {
+            padding: 15px;
+        }
+
+        .mole-hide {
+            bottom: 10px;
+            width: 50px;
+        }
+
+        .mole-appear {
+            width: 170px;
+            bottom: 50px;
+        }
+
+        .bush {
+            width: 160px;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .whack-text {
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 26px;
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="count">
+        Time : <span id="time-count">0</span> &nbsp;
+        Score : <span id="score-count"></span>
+    </h1>
+
+    <div class="container">
+        <div class="item">
+            <div class="bush">
+                <img src="bush.jpg" alt="">
+                <span class="whack-text">Whack</span>
+            </div>
+            <div class="mole mole-hide">
+                <img src="mole.jpg" class="mole-clicked">
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="bush">
+                <img src="bush.jpg" alt="">
+
+            </div>
+            <div class="mole mole-hide">
+                <img src="mole.jpg" class="mole-clicked">
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="bush">
+                <img src="bush.jpg" alt="">
+
+            </div>
+            <div class="mole mole-hide">
+                <img src="mole.jpg" class="mole-clicked">
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="bush">
+                <img src="bush.jpg" alt="">
+
+            </div>
+            <div class="mole mole-hide">
+                <img src="mole.jpg" class="mole-clicked">
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="bush">
+                <img src="bush.jpg" alt="">
+
+            </div>
+            <div class="mole mole-hide">
+                <img src="mole.jpg" class="mole-clicked">
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="bush">
+                <img src="bush.jpg" alt="">
+
+            </div>
+            <div class="mole mole-hide">
+                <img src="mole.jpg" class="mole-clicked">
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="bush">
+                <img src="bush.jpg" alt="">
+
+            </div>
+            <div class="mole mole-hide">
+                <img src="mole.jpg" class="mole-clicked">
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="bush">
+                <img src="bush.jpg" alt="">
+
+            </div>
+            <div class="mole mole-hide">
+                <img src="mole.jpg" class="mole-clicked">
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="bush">
+                <img src="bush.jpg" alt="">
+
+            </div>
+            <div class="mole mole-hide">
+                <img src="mole.jpg" class="mole-clicked">
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const gameContainer = document.querySelector('.container');
+        const allMoleItems = document.querySelectorAll('.item');
+        let startGame, startTime, countDown = 20, score = 0;
+
+        const timeCount = document.getElementById('time-count');
+        const scoreCount = document.getElementById('score-count');
+
+        gameContainer.addEventListener('click', function (e) {
+            if (e.target.classList.contains('mole-clicked')) {
+                score++;
+                scoreCount.innerHTML = score;
+
+                const bushElem = e.target.parentElement.previousElementSibling;
+
+                let textEl = document.createElement('span');
+                textEl.setAttribute('class', 'whack-text');
+                textEl.innerHTML = "whack!";
+                bushElem.appendChild(textEl);
+
+                setTimeout(() => {
+                    textEl.remove();
+                }, 300);
+            }
+        })
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // total game time is 20 seconds
+            startTime = setInterval(() => {
+                timeCount.innerHTML = countDown;
+                countDown--;
+            }, 1000);
+
+            startGame = setInterval(() => {
+                showMole();
+            }, 600);
+        });
+
+        // shows mole
+        function showMole() {
+            if (countDown <= 0) {
+                clearInterval(startGame);
+                clearInterval(startTime);
+                timeCount.innerHTML = "0";
+            }
+            let moleToAppear = allMoleItems[getRandomValue()].querySelector('.mole');
+            moleToAppear.classList.add('mole-appear');
+            hideMole(moleToAppear);
+
+        }
+
+        function getRandomValue() {
+            let rand = Math.random() * allMoleItems.length;
+            return Math.floor(rand);
+        }
+
+        // hide Mole
+        function hideMole(moleItem) {
+            setTimeout(() => {
+                moleItem.classList.remove('mole-appear');
+            }, 1000);
+        }
+
+    </script>
+</body>
+
+</html>
