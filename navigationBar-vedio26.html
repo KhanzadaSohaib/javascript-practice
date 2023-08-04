@@ -19,9 +19,9 @@
                 <div class="dropdown dropdown1">
                     <div class="bio">
                         <img src="gtr3.jpg" alt="">
-                        <p>Nissan GT-R is a sports car produced by the Japanese Nissan, <br> which successfully resumes the
-                            tradition of the previous <br> Nissan Skyline series. This Supersport continually moves the
-                            limits and raises the bar <br> in terms of performance, manageability, design and quality.</p>
+                        <p>Nissan GT-R is a sports car produced by the Japanese Nissan, which successfully resumes the
+                            tradition of the previous  Nissan Skyline series. This Supersport continually moves the
+                            limits and raises the bar in terms of performance, manageability, design and quality.</p>
                     </div>
                 </div>
             </li>
@@ -82,7 +82,7 @@
         }
         body{
              min-height: 100vh;
-             background: rgb(3, 3, 3);
+             background:  rgb(96, 102, 98);
         }
         nav{
             position: relative;
@@ -144,6 +144,10 @@
             opacity: 0;
 
         }
+
+        .dropdownBackground.open {
+            opacity: 1;
+        }
         .arrow {
             position: absolute;
             width: 20px;
@@ -199,16 +203,19 @@
     function handleEnter(){
         this.classList.add('trigger-enter');
         setTimeout(() => this.classList.add('trigger-enter-active'), 150);
-
+        background.classList.add('open');
     }
 
     function handleLeave(){
-        console.log('Leave');
+        this.classList.remove('trigger-enter', 'trigger-enter-active');
+        background.classList.remove('open');
     }
 
     triggers.forEach(trigger => trigger.addEventListener('mouseenter', handleEnter));
     triggers.forEach(trigger => trigger.addEventListener('mouseleave', handleLeave));
+
 </script>
+
 </body>
 
 </html>

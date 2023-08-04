@@ -43,13 +43,13 @@
              margin-bottom: 5px;
 
         }
-         form :where(textarea, select, button){
+         form :where(input, select, button){
             outline: none;
             width: 100%;
             border: none;
             border-radius: 5px;
          }
-         form .rpw textarea{
+         form .rpw input{
             resize: none;
             height: 110px;
             font-size: 15px;
@@ -65,7 +65,7 @@
             border-radius: 5px;
             border: 1px solid #999;
          }
-         textarea{
+         input{
             border: 1px solid #999;
          }
          form .row select{
@@ -87,20 +87,18 @@
         <form action="#">
             <div class="row">
                 <label> Enter Text</label>
-                <textarea></textarea>
+                <input type="text">
             </div>
             <div class="row">
                 <label>Select Voice</label>
                 <div class="outer"> 
                     <select>
-                        <option value="">Google Hindi (hi-IN)</option>
-                        <option value="">English (United state)</option>
-                        <option value="">Google US English (en-US) </option>
-                        <option value="">Google UK English Male (en-Gb)</option>
+                        <option value="">Google Voice </option>
+                        
                     </select>
                 </div>
             </div>
-            <button>Convert To Speech</button>
+            <button onclick="abc()">Convert To Speech</button>
         </form>
     </div>
 
@@ -109,15 +107,16 @@
         const textarea = document.querySelector("textarea"),
         speechBtn = document.querySelector("button");
 
-        function textToSpeach(text){
-            let utternance = new SpeechSynthesisUtterance(text);
-            speechSynthesis.speak(utternance);
+        function abc() {
+            const text = document.getElementsByTagName('input');
+            var msg = new SpeechSynthesisUtterance();
+            msg.text = text[0].value;
+            window.speechSynthesis.speak(msg)
         }
-
         speechBtn.addEventListener("click", e =>{
             e.preventDefault();
             if(textarea.value !== ""){
-                textToSpeech(textarea.value);
+                abc(textarea.value);
             }
         })
     </script>
