@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #0c0c0c;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .container {
+            margin: 10vh auto;
+            width: 500px;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 10px;
+            background-color: #272727;
+        }
+
+        .header {
+            margin: 2rem;
+            color: #666;
+
+        }
+
+        input {
+            width: 370px;
+            padding: 0.5rem 2rem;
+            font-size: 3rem;
+            border-radius: 10px;
+            text-align: right;
+            background-color: #272727;
+            color: #666;
+        }
+
+        .buttons {
+            margin: auto;
+            width: 470px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button {
+            padding: 40px;
+            font-size: 20px;
+            margin: 0.5rem;
+            max-width: 100px;
+            max-height: 100px;
+            text-align: center;
+            border-radius: 10%;
+            font-weight: 900;
+            background-color: #272727;
+            color: #666;
+        }
+
+        #clr {
+            background-color: #ebdaa0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <section class="header">
+            <h1>My Calculator</h1>
+            <input type="text" id="display">
+        </section>
+
+
+        <section class="buttons">
+
+            <button onclick="getNumber(1)">1</button>
+            <button onclick="getNumber(2)">2</button>
+            <button onclick="getNumber(3)">3</button>
+            <button id="clr" onclick="getOperator('+')">+</button>
+
+            <button onclick="getNumber(4)">4</button>
+            <button onclick="getNumber(5)">5</button>
+            <button onclick="getNumber(6)">6</button>
+            <button id="clr" onclick="getOperator('-')">-</button>
+
+            <button onclick="getNumber(7)">7</button>
+            <button onclick="getNumber(8)">8</button>
+            <button onclick="getNumber(9)">9</button>
+            <button id="clr" type="button" data-operator="*" class="operator">*</button>
+
+            <button onclick="clearDisplay()">ce</button>
+            <button onclick="getNumber('0')">0</button>
+            <button onclick="getNumber('00')">00</button>
+            <button id="clr" onclick="getOperator('/')">/</button>
+
+            <button id="clr" value="." onclick="getNumber('.')">.</button>
+            <button id="clr" onclick="calculateEquals()">=</button>
+
+
+        </section>
+
+    </div>
+
+
+    <script>
+
+        let firstNumber
+        let secondNumber
+        let step = 0;
+        let operation
+        let result = 0;
+        let numArray = []
+        let secondNumArray = [];
+        const operationButton = document.querySelectorAll("[data-operator]");
+
+        let display = document.getElementById('display')
+
+
+
+
+        function getNumber(num) {
+            if (step === 0 || step === 1) {
+                numArray.push(num);
+                step = 1;
+                firstNumber = Number(numArray.join(''))
+                display.value = firstNumber;
+            } else if (step === 2) {
+                secondNumArray.push(num)
+                secondNumber = Number(secondNumArray.join(''));
+                display.value = secondNumber;
+            }
+        }
+
+        function getOperator(op) {
+            step = 2;
+            operation = op;
+        }
+
+        function clearDisplay() {
+            display.value = 0;
+            firstNumber = null;
+            secondNumber = null;
+            step = 0;
+            operation = null;
+            result = 0;
+            numArray = [];
+            secondNumArray = [];
+        }
+        const calculateEquals = () => {
+            if (operation === '+') {
+                result = firstNumber + secondNumber;
+                display.value = result;
+            } else if (operation === '-') {
+                result = firstNumber - secondNumber;
+                display.value = result;
+            } else if (operation === '*') {
+                result = firstNumber * secondNumber;
+                display.value = result;
+            } else if (operation === '/') {
+                result = firstNumber / secondNumber;
+                display.value = result;
+            }
+        }
+
+    </script>
+</body>
+
+</html>
